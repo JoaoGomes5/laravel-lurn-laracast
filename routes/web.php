@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use \App\Article;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +14,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/posts/{post}', 'PostsController@show');
+Route::get('/about', function () {
+    return view('about' , [
+
+        'articles' => App\Article::take(3)->latest()->get()
+
+    ]);
+});
+
+// Route::get('/articles', function () {
+//     return view('articles.showAll' , [
+
+//         'articles' => App\Article::take(3)->latest()->get()
+
+//     ]);
+
+// });
+
+
+Route::get('/articles', 'ArticleController@index');
+Route::get('/articles/{article}', 'ArticleController@show');
+
+
 
 
