@@ -17,8 +17,17 @@
 
             </div>
             <div class="control">
-                <input type="text" class="input" name="title" id="title">
+                <input
+                type="text"
+                class="input  @error('title')  is-danger @enderror "
+                name="title"
+                id="title"
+            value="{{old('title')}}"
+                >
 
+                @error('title')
+                    <p class="help is-danger">{{ $errors->first('title')}}</p>
+                @enderror
             </div>
 
             <div class="field">
@@ -28,8 +37,18 @@
 
             </div>
             <div class="control">
-                <textarea type="textare" class="textarea" name="excerpt" id="excerpt"></textarea>
 
+                <textarea
+                type="textarea"
+                class="textarea  @error('excerpt')  is-danger @enderror "
+                name="excerpt"
+                id="excerpt"
+                value=""
+                >{{old('excerpt')}}</textarea>
+
+                @error('excerpt')
+                <p class="help is-danger">{{ $errors->first('excerpt')}}</p>
+                @enderror
             </div>
 
             <div class="field">
@@ -37,7 +56,16 @@
                 <label for="body">Body</label>
             </div>
             <div class="control">
-                <textarea type="textarea" class="textarea" name="body" id="body"> </textarea>
+                <textarea
+                type="textarea"
+                class="textarea  @error('body')  is-danger @enderror "
+                name="body"
+                id="body"
+                value=""
+                > {{old('body')}}</textarea>
+                @error('body')
+                <p class="help is-danger">{{ $errors->first('body')}}</p>
+                @enderror
             </div>
 
             <div class="field is-grouped">

@@ -8,54 +8,71 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller
 {
     //render a list of resouces
-    public function index(){
-
-        return view('articles.index' , ['articles' => Article::latest()->get()]);
-
-    }
     //show a single resouce
-    public function show($id){
+    protected function validateArticle()
+    {
 
-      $article = Article::find($id);
 
-      return view('articles.show', ['article' => $article] );
+        return request()->validate([
 
+            'title' => 'required',
+            'excerpt' => 'required',
+            'body' => 'required'
+
+            ]);
+
+        }
+
+     public function index(){
+
+         return view('articles.index' , ['articles' => Article::latest()->get()]);
+
+     }
+
+    public function show(Article $article)
+    {
+         return view('articles.show', ['article' => $article] );
     }
     //show a view to create a resource
+
     public function create()
     {
         return view('articles.create');
     }
 
-    public function store()
+    public function store(Article $article)
     {
         //presist the new resouce
+        $article->create($this->validateArticle());
 
-       $article = new Article();
-
-       $article->title = request('title');
-       $article->excerpt = request('excerpt');
-       $article->body = request('body');
-
-       $article->save();
-
-       return redirect('/articles');
+       return redirect(route('articles.index'));
     }
 
     //show a view to edit a resource
-    public function edit()
+    public function edit(Article $article)
     {
+
+
+        return view('articles.edit' , ['article' => $article]);
     }
 
-    public function update()
+    public function update(Article $article)
     {
         # code...
         //presist the edited the resouce
+
+        $article->update($this->validateArticle());
+
+
+        return redirect($article->path());
+
     }
 
-    public function destroy()
+    public function destroy(Article $article)
     {
         //dpresist and delete
+
+
     }
 
 
