@@ -9,7 +9,7 @@
 		<div id="content">
 
 			<div class="title">
-                <a href="{{$artical->path())}}"><h2>{{$article->title}}</h2></a>
+                <a href="{{$article->path()}}"><h2>{{$article->title}}</h2></a>
 
             </div>
 			<p><img src="/images/banner.jpg" alt="" class="image image-full" /> </p>
